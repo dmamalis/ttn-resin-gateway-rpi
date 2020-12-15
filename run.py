@@ -342,7 +342,7 @@ if(os.getenv('SERVER_3_ENABLED', "false")=="true"):
 
 if(os.getenv('SERVER_TYPE',"kudzu")=="true"):
     server={}
-    server{'server_address'="router.kudzu.gr"}
+    server['server_address'="router.kudzu.gr"]
     server['serv_port_up'] = int(os.getenv("SERVER_KUDZU_PORTUP", 1700))
     server['serv_port_down'] = int(os.getenv("SERVER_KUDZU_PORTDOWN", 1700))
     gateway_conf['servers'].append(server)
