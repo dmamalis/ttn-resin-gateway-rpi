@@ -21,7 +21,7 @@ except RuntimeError:
 
 GWID_PREFIX="FFFE"
 
-if not os.path.exists("/opt/ttn-gateway/mp_pkt_fwd"):
+if not os.path.exists("/opt/ttn-gateway/lora_pkt_fwd"):
   print ("ERROR: gateway executable not found. Is it built yet?")
   sys.exit(0)
 
@@ -391,5 +391,5 @@ while True:
     time.sleep(0.1)
 
   # Start forwarder
-  subprocess.call(['/opt/ttn-gateway/mp_pkt_fwd', '-c', '/opt/ttn-gateway/', '-s', os.getenv('SPI_SPEED', '8000000')])
+  subprocess.call(['/opt/ttn-gateway/lora_pkt_fwd', '-c', '/opt/ttn-gateway/', '-s', os.getenv('SPI_SPEED', '8000000')])
   time.sleep(15)
