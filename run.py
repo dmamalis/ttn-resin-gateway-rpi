@@ -263,11 +263,10 @@ if(autoquit_threshold > 0):
 
 # Add TTN server
 if(os.getenv('SERVER_TTN', "true")=="true"):
-  server = {}
   if(os.getenv('SERVER_TYPE',"kudzu")=="true"):
     gateway_conf['server_address']="router.kudzu.gr"
   else:
-    gateway_conf['server_address'] = router
+    gateway_conf['server_address'] = "kouirafelkithra"
   gateway_conf['serv_port_up'] = int(os.getenv("SERVER_0_PORTUP", 1700))
   gateway_conf['serv_port_down'] = int(os.getenv("SERVER_0_PORTDOWN", 1700))
 
