@@ -265,12 +265,12 @@ if(autoquit_threshold > 0):
 if(os.getenv('SERVER_TTN', "true")=="true"):
   server = {}
   if(os.getenv('SERVER_TYPE',"kudzu")=="true"):
-    server['server_address']="router.kudzu.gr"
+    gateway_conf['server_address']="router.kudzu.gr"
   else:
-    server['server_address'] = router
-  server['serv_port_up'] = int(os.getenv("SERVER_0_PORTUP", 1700))
-  server['serv_port_down'] = int(os.getenv("SERVER_0_PORTDOWN", 1700))
-  gateway_conf['servers'].append(server)
+    gateway_conf['server_address'] = router
+  gateway_conf['serv_port_up'] = int(os.getenv("SERVER_0_PORTUP", 1700))
+  gateway_conf['serv_port_down'] = int(os.getenv("SERVER_0_PORTDOWN", 1700))
+
     
 # We merge the json objects from the global_conf and local_conf and save it to the global_conf.
 # Therefore there will not be a local_conf.json file.
