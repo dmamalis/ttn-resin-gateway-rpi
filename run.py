@@ -201,13 +201,7 @@ gateway_conf = {}
 gateway_conf['gateway_ID'] = my_eui
 gateway_conf['contact_email'] = os.getenv('GW_CONTACT_EMAIL', "")
 gateway_conf['description'] = description
-gateway_conf['stat_file'] = 'loragwstat.json'
 gateway_conf['push_timeout_ms'] = int(os.getenv("GW_PUSH_TIMEOUT", 100)) # Default in code is 100
-
-if(os.getenv('GW_LOGGER', "false")=="true"):
-  gateway_conf['logger'] = True
-else:
-  gateway_conf['logger'] = False
 
 if(os.getenv('GW_FWD_CRC_ERR', "false")=="true"):
   #default is False
@@ -263,7 +257,7 @@ if(autoquit_threshold > 0):
 
 # Add TTN server
 if(os.getenv('SERVER_TTN', "true")=="true"):
-  if(os.getenv('SERVER_TYPE',"kudzu")=="true"):
+  if(os.getenv('SERVER_TYPE',"type")=="kudzu"):
     gateway_conf['server_address']="router.kudzu.gr"
   else:
     gateway_conf['server_address'] = "kouirafelkithra"
