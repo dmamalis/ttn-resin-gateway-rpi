@@ -241,36 +241,22 @@ else:
   gateway_conf['gps'] = False
   gateway_conf['fake_gps'] = False
 
-# Log all LoRaWAN packets to console
-if(os.getenv('GW_LOGGER', "false")=="true"):
-  gateway_conf['logger'] = True
-  print ("Packet logging enabled")
-
-# Autoquit when a number of PULL_ACKs have been missed
-autoquit_threshold = int(os.getenv('GW_AUTOQUIT_THRESHOLD', 0))
-if(autoquit_threshold > 0):
-  gateway_conf['autoquit_threshold'] = int(os.getenv('GW_AUTOQUIT_THRESHOLD', 5))
-  print ("Autoquit after", gateway_conf['autoquit_threshold'], "missed PULL_ACKs")
-
-# Add server configuration
-#gateway_conf['servers'] = []
 
 # Add TTN server
 if(os.getenv('SERVER_TTN', "true")=="true"):
   if(os.getenv('SERVER_TYPE',"type")=="kudzu"):
     gateway_conf['server_address']="router.kudzu.gr"
   else:
-    gateway_conf['server_address'] = "kouirafelkithra"
-  gateway_conf['serv_port_up'] = int(os.getenv("SERVER_0_PORTUP", 1700))
-  gateway_conf['serv_port_down'] = int(os.getenv("SERVER_0_PORTDOWN", 1700))
+    gateway_conf['server_address'] = router
+  gateway_conf['serv_port_up'] = int(os.getenv("SERVER_PORTUP", 1700))
+  gateway_conf['serv_port_down'] = int(os.getenv("SERVER_PORTDOWN", 1700))
 
-    
+
 # We merge the json objects from the global_conf and local_conf and save it to the global_conf.
 # Therefore there will not be a local_conf.json file.
 local_conf = {'SX1301_conf': sx1301_conf, 'gateway_conf': gateway_conf}
 with open('/opt/ttn-gateway/global_conf.json', 'w') as the_file:
   the_file.write(json.dumps(local_conf, indent=4))
-
 
 
 # Endless loop to reset and restart packet forwarder
