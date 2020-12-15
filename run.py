@@ -122,13 +122,6 @@ if(os.getenv('SERVER_TTN', "true")=="true"):
       continue
     break
 
-  print ("*********************************************************")
-  print ("*********************************************************")
-  print ("*********************************************************")
-  print(config_response)
-  print ("*********************************************************")
-  print ("*********************************************************")
-  print ("*********************************************************")	
   # Parse config
   ttn_config = {}
   try:
@@ -271,7 +264,6 @@ gateway_conf['servers'] = []
 # Add TTN server
 if(os.getenv('SERVER_TTN', "true")=="true"):
   server = {}
-  server['serv_type'] = "ttn"
   server['server_address'] = router
   server['server_fallbacks'] = fallback_routers
   server['serv_gw_id'] = my_gw_id
@@ -348,7 +340,13 @@ if(os.getenv('SERVER_3_ENABLED', "false")=="true"):
     server['serv_down_enabled'] = False
   gateway_conf['servers'].append(server)
 
-
+if(os.getenv('SERVER_TYPE',"kudzu")=="true"):
+    server={}
+    server{'server_address'="router.kudzu.gr"}
+    server['serv_port_up'] = int(os.getenv("SERVER_KUDZU_PORTUP", 1700))
+    server['serv_port_down'] = int(os.getenv("SERVER_KUDZU_PORTDOWN", 1700))
+    gateway_conf['servers'].append(server)
+    
 # We merge the json objects from the global_conf and local_conf and save it to the global_conf.
 # Therefore there will not be a local_conf.json file.
 local_conf = {'SX1301_conf': sx1301_conf, 'gateway_conf': gateway_conf}
