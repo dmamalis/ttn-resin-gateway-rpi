@@ -259,93 +259,18 @@ if(autoquit_threshold > 0):
   print ("Autoquit after", gateway_conf['autoquit_threshold'], "missed PULL_ACKs")
 
 # Add server configuration
-gateway_conf['servers'] = []
+#gateway_conf['servers'] = []
 
 # Add TTN server
 if(os.getenv('SERVER_TTN', "true")=="true"):
   server = {}
-  server['server_address'] = router
-  server['server_fallbacks'] = fallback_routers
-  server['serv_gw_id'] = my_gw_id
-  server['serv_gw_key'] = os.environ.get("GW_KEY")
-  server['serv_enabled'] = True
-  if(os.getenv('SERVER_TTN_DOWNLINK', "true")=="false"):
-    server['serv_down_enabled'] = False
-  else:
-    server['serv_down_enabled'] = True
-  gateway_conf['servers'].append(server)
-else:
-  if(os.getenv('SERVER_0_ENABLED', "false")=="true"):
-    server = {}
-    if(os.getenv('SERVER_0_TYPE', "semtech")=="ttn"):
-      server['serv_type'] = "ttn"
-      server['serv_gw_id'] = os.environ.get("SERVER_0_GWID")
-      server['serv_gw_key'] = os.environ.get("SERVER_0_GWKEY")
-    server['server_address'] = os.environ.get("SERVER_0_ADDRESS")
-    server['serv_port_up'] = int(os.getenv("SERVER_0_PORTUP", 1700))
-    server['serv_port_down'] = int(os.getenv("SERVER_0_PORTDOWN", 1700))
-    server['serv_enabled'] = True
-    if(os.getenv('SERVER_0_DOWNLINK', "false")=="true"):
-      server['serv_down_enabled'] = True
-    else:
-      server['serv_down_enabled'] = False
-    gateway_conf['servers'].append(server)
-
-# Add up to 3 additional servers
-if(os.getenv('SERVER_1_ENABLED', "false")=="true"):
-  server = {}
-  if(os.getenv('SERVER_1_TYPE', "semtech")=="ttn"):
-    server['serv_type'] = "ttn"
-    server['serv_gw_id'] = os.environ.get("SERVER_1_GWID")
-    server['serv_gw_key'] = os.environ.get("SERVER_1_GWKEY")
-  server['server_address'] = os.environ.get("SERVER_1_ADDRESS")
-  server['serv_port_up'] = int(os.getenv("SERVER_1_PORTUP", 1700))
-  server['serv_port_down'] = int(os.getenv("SERVER_1_PORTDOWN", 1700))
-  server['serv_enabled'] = True
-  if(os.getenv('SERVER_1_DOWNLINK', "false")=="true"):
-    server['serv_down_enabled'] = True
-  else:
-    server['serv_down_enabled'] = False
-  gateway_conf['servers'].append(server)
-
-if(os.getenv('SERVER_2_ENABLED', "false")=="true"):
-  server = {}
-  if(os.getenv('SERVER_2_TYPE', "semtech")=="ttn"):
-    server['serv_type'] = "ttn"
-    server['serv_gw_id'] = os.environ.get("SERVER_2_GWID")
-    server['serv_gw_key'] = os.environ.get("SERVER_2_GWKEY")
-  server['server_address'] = os.environ.get("SERVER_2_ADDRESS")
-  server['serv_port_up'] = int(os.getenv("SERVER_2_PORTUP", 1700))
-  server['serv_port_down'] = int(os.getenv("SERVER_2_PORTDOWN", 1700))
-  server['serv_enabled'] = True
-  if(os.getenv('SERVER_2_DOWNLINK', "false")=="true"):
-    server['serv_down_enabled'] = True
-  else:
-    server['serv_down_enabled'] = False
-  gateway_conf['servers'].append(server)
-
-if(os.getenv('SERVER_3_ENABLED', "false")=="true"):
-  server = {}
-  if(os.getenv('SERVER_3_TYPE', "semtech")=="ttn"):
-    server['serv_type'] = "ttn"
-    server['serv_gw_id'] = os.environ.get("SERVER_3_GWID")
-    server['serv_gw_key'] = os.environ.get("SERVER_3_GWKEY")
-  server['server_address'] = os.environ.get("SERVER_3_ADDRESS")
-  server['serv_port_up'] = int(os.getenv("SERVER_3_PORTUP", 1700))
-  server['serv_port_down'] = int(os.getenv("SERVER_3_PORTDOWN", 1700))
-  server['serv_enabled'] = True
-  if(os.getenv('SERVER_3_DOWNLINK', "false")=="true"):
-    server['serv_down_enabled'] = True
-  else:
-    server['serv_down_enabled'] = False
-  gateway_conf['servers'].append(server)
-
-if(os.getenv('SERVER_TYPE',"kudzu")=="true"):
-    server={}
+  if(os.getenv('SERVER_TYPE',"kudzu")=="true"):
     server['server_address']="router.kudzu.gr"
-    server['serv_port_up'] = int(os.getenv("SERVER_KUDZU_PORTUP", 1700))
-    server['serv_port_down'] = int(os.getenv("SERVER_KUDZU_PORTDOWN", 1700))
-    gateway_conf['servers'].append(server)
+  else:
+    server['server_address'] = router
+  server['serv_port_up'] = int(os.getenv("SERVER_0_PORTUP", 1700))
+  server['serv_port_down'] = int(os.getenv("SERVER_0_PORTDOWN", 1700))
+  gateway_conf['servers'].append(server)
     
 # We merge the json objects from the global_conf and local_conf and save it to the global_conf.
 # Therefore there will not be a local_conf.json file.
